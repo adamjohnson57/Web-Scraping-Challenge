@@ -13,11 +13,11 @@ def scrape_mars():
     html = browser.html
     soup = bs(html, 'html.parser')
 
-    title = soup.find.all('div', class_='content_title')
+    title = soup.find_all('div', class_='content_title')
     paragraph = soup.find_all('div', class_='article_teaser_body')
     news_title = title[1].text
     news_p = paragraph[0].text
-
+    print(f"news_title= {news_title}")
 
     base_url = "https://www.jpl.nasa.gov"
     url = base_url + "/spaceimages/?search=&category=Mars"
@@ -37,7 +37,7 @@ def scrape_mars():
 
     mars_facts = pd.read_html(facts_url)[0]
     mars_facts_html = mars_facts.to_html()
-    mars_facts_html.replace('\n','')
+    
 
 
     hemi_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -73,5 +73,9 @@ def scrape_mars():
 
     return mars_page
 
+if __name__ == "__main__":
+
+    # If running as script, print scraped data
+    print(scrape_mars())
 
 
